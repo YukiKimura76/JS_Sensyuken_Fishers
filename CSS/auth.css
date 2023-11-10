@@ -1,0 +1,16 @@
+
+
+#signUpPanel {
+    display: none; /* 新規登録フォームを非表示にする */
+  }
+
+h2 {
+  text-align: center;
+  align-items: center;
+  color: black;
+  height: 50px;
+
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 20px;
+}

@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
+    /* ナビゲーションバーのカスタマイズ */
+    .navbar-inverse {
+      background-color: #0275d8; /* 海の青 */
+      border-color: #01549b;
+    }
+
+h2 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a,
+.navbar-inverse .navbar-seller-btn { /* 追加 */
+    color: #fff; /* 文字は白色で */
+    background-color: transparent; /* 追加: 背景透明 */
+    border: none; /* 追加: ボーダーなし */
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-seller-btn:hover { /* 追加 */
+    background-color: #01549b; /* ホバー状態の背景色を少し暗く */
+}
+
+/* ドロップダウンメニュー */
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color: #333; /* ドロップダウンのリンク色 */
+  }
+
+.product-card {
+border: 1px solid #ddd; /* 枠線を追加 */
+border-radius: 30px; /* 角を丸める */
+overflow: hidden; /* 枠線の内側にすべての内容を制限 */
+box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* シャドウを追加 */
+transition: box-shadow 0.3s ease-in-out; /* シャドウのトランジション効果を追加 */
+margin-bottom: 30px;
+}
+
+.product-card:hover {
+box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* ホバー時のシャドウを強調 */
+}
+
+.product-card img {
+width: 100%; /* 画像の幅をカードに合わせる */
+display: block; /* 画像をブロック要素にする */
+height: 200px; /* 画像の高さを固定する */
+object-fit: cover; /* 画像をカバー表示にする */
+}
+
+.delete-btn {
+background-color: #ff4444; /* 背景色 */
+color: white; /* 文字色 */
+border: none; /* 枠線なし */
+padding: 10px 20px; /* 内側の余白 */
+margin-top: 10px; /* 上部の余白 */
+border-radius: 4px; /* 角を丸める */
+cursor: pointer; /* カーソルをポインターに */
+transition: background-color 0.3s; /* 背景色のトランジションを追加 */
+}
+
+.delete-btn:hover {
+background-color: #cc0000; /* ホバー時の背景色を濃くする */
+}
+
+.loader {
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px; /* half of the width */
+  margin-top: -25px; /* half of the height */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

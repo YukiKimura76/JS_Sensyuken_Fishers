@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>魚市場</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="./CSS/style.index.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+<script src="js/firebaseConfig.js"></script>
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AvwhXY91HP85mm73jbmc_auVx6XVPXt2Cy3U9hJ0z4M159xAszgI1yNqJqYPQv1a' async defer></script>
+<script src="https://cdn.jsdelivr.net/gh/yamazakidaisuke/BmapQuery/js/BmapQuery.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="./index.html">魚市場</a>
+        </div>
+        <ul class="nav navbar-nav">
+        <li class="active"><a href="./FV.html">TOP</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">産地<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="?category=fukuoka">福岡</a></li>
+                <li><a href="?category=yaizu">焼津</a></li>
+                <li><a href="?category=nagasaki">長崎</a></li>
+                <li><a href="?category=choshi">銚子</a></li>
+                <li><a href="?category=nemuro">根室</a></li>
+            </ul>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a id="login-link" href="auth.html"><span class="glyphicon glyphicon-user"></span> ログイン</a></li>
+            <li><a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> カート</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<h2 id="product-list">カートの中身</h2>
+
+<!-- 全商品を表示するセクション -->
+<div class="container">
+    <div id="all-products" class="row">
+
+    </div>
+</div>
+  
+
+<!-- 商品カードのテンプレート -->
+<script type="text/template" id="product-card-template">
+    <div class="product-card">
+        <img src="%PHOTO%" alt="Product Image" class="product-image">
+        <p class="product-origin">産地：%ORIGIN%</p>
+        <p class="product-category">種類： %CATEGORY%</p>
+        <p class="product-price">価格：¥%PRICE%</p>
+        <p class="product-rating">おすすめ： %RATING%</p>
+        <p class="product-size">サイズ： %SIZE%</p>
+        <p class="product-weight">重さ： %WEIGHT%kg</p>
+    </div>
+</script>
+
+<!-- 合計金額の表示 -->
+<div id="total-amount" class="total-amount-display"></div>
+
+<!-- 支払いボタン -->
+<button id="proceed-to-payment-btn" class="btn btn-success">支払いに進む</button>
+
+<!-- 支払いフォーム -->
+<form id="payment-form" class="payment-form">
+  <h2>支払い方法</h2>
+  <p>クレジットカード情報を入力してください。</p>
+  <input type="text" placeholder="カード番号" required>
+  <input type="text" placeholder="有効期限 MM/YY" required>
+  <input type="text" placeholder="CVC" required>
+  <button type="submit" class="btn btn-confirm">確定</button>
+</form>
+
+
+<div class="container-fluid text-center footer">
+<h4>株式会社ジーズアカデミーLAB16期</h4>
+</div>
+
+<!-- FirebaseとメインのJavaScriptファイルを読み込む -->
+<script src="./js/cart.js"></script>
+</body>
+</html>

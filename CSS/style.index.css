@@ -1,0 +1,302 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
+    /* ナビゲーションバーのカスタマイズ */
+    .navbar-inverse {
+      background-color: #0275d8; /* 海の青 */
+      border-color: #01549b;
+    }
+
+h1 {
+    flex: center;
+    width: 800px;
+    color: black;
+    text-align: center;
+    padding: 5px;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-decoration: underline; /* 下線 */
+    text-decoration-thickness: 0.5em; /* 線の太さ */
+    text-decoration-color: rgba(239, 231, 7, 0.956); /* 線の色 */
+    text-underline-offset: -0.2em; /* 線の位置。テキストに重なるようにやや上部にする */
+    text-decoration-skip-ink: none; /* 下線と文字列が重なる部分でも下線が省略されない（線が途切れない） */
+    margin-bottom: 60px;
+}
+
+.container {
+flex: between;
+max-width: 2300px; /* 好みの最大幅に設定 */
+margin: 0 auto; /* 上下のマージンは0に、左右は自動で中央揃え */
+padding: 0 15px; /* コンテナの内側に少し余白を持たせる */
+display: flex;
+flex-wrap: nowrap;
+}
+
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a { /* 追加 */
+    color: #fff; /* 文字は白色で */
+    background-color: transparent; /* 追加: 背景透明 */
+    border: none; /* 追加: ボーダーなし */
+    
+
+}
+.navbar-seller-btn {
+    text-align: center;
+    color: white;
+    height: 50px;
+    background-color: rgb(25, 157, 238);
+    font-size: 1.0em;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-seller-btn:hover { /* 追加 */
+    background-color: #01549b; /* ホバー状態の背景色を少し暗く */
+}
+
+/* ドロップダウンメニュー */
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color: #333; /* ドロップダウンのリンク色 */
+  }
+
+.product-card {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border: 1px solid #ddd; /* 枠線を追加 */
+border-radius:30px; /* 角を丸める */
+overflow: hidden; /* 枠線の内側にすべての内容を制限 */
+box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* シャドウを追加 */
+transition: box-shadow 0.3s ease-in-out; /* シャドウのトランジション効果を追加 */
+margin-bottom: 30px;
+}
+
+.product-card:hover {
+box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* ホバー時のシャドウを強調 */
+}
+
+.product-image {
+width: 100%; /* 画像の幅をカードに合わせる */
+display: block; /* 画像をブロック要素にする */
+height: 400px; /* 画像の高さを固定する */
+object-fit: cover; /* 画像をカバー表示にする */
+}
+
+/* マップコンテナのスタイル */
+.map-container, #myMap {
+    width: 70%;
+    height: 100%;
+    margin-right: 10;
+}
+
+/* 産地別数量リストのスタイル */
+.origins-container {
+    
+    width: 30%;
+    height: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* コンテンツが多い場合にスクロール可能にする */
+    background-color: #f8f9fa; /* 明るい背景色で目立たせる */
+}
+
+
+/* 産地別数量リストアイテムのスタイル */
+.origins-container li {
+    list-style-type: none; /* リストのバレットを非表示に */
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #ffffff; /* 背景色 */
+    border: 1px solid #dddddd; /* 境界線 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* シャドウ効果 */
+    font-weight: bold; /* フォントを太く */
+    color: #333333; /* フォントの色 */
+    font-size: 1.3em;
+}
+
+/* スクロールバーのスタイル（オプション） */
+.origins-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.origins-container::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa;
+    border-radius: 10px;
+}
+
+.origins-container::-webkit-scrollbar-track {
+    background-color: #dddddd;
+}
+.btn {
+    background-color: #f4a3db; /* 背景色 */
+    color: white; /* 文字色 */
+    border: none; /* 枠線なし */
+    padding: 10px 20px; /* 内側の余白 */
+    margin-top: 10px; /* 上部の余白 */
+    border-radius: 4px; /* 角を丸める */
+    cursor: pointer; /* カーソルをポインターに */
+    transition: background-color 0.3s; /* 背景色のトランジションを追加 */
+}
+
+header.container {
+    flex: center;
+    width: 200px;
+    background-color: rgb(9, 37, 250);
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.3em;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    flex: center;
+    width: 200px;
+    background-color: rgb(9, 37, 250);
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+product-list {
+    width: 100px;
+    text-align: center;
+    padding: 20px 0;
+    background-color: rgb(67, 190, 239);
+    color: white;
+    font-size: 2.0em;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 30px;
+  }
+
+.cart-feedback {
+    background-color: #28a745; /* 成功メッセージ用の色 */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none; /* 初期状態では非表示 */
+    z-index: 1000;
+  }
+
+/* 合計金額表示のスタイル */
+.total-amount-display {
+    text-align: center; /* 文字列を中央揃え */
+    width: 300px; /* 幅を300pxに設定 */
+    font-size: 24px; /* フォントサイズ */
+    font-weight: bold; /* 太字 */
+    color: #DAA520; /* 金色 */
+    padding: 10px;
+    margin: 20px auto; /* 上下のマージンを20px、左右のマージンをautoに設定 */
+    border: 1px solid #DAA520; /* 枠線 */
+    border-radius: 5px; /* 角の丸み */
+    background-color: #FFF8DC; /* 薄いクリーム色の背景 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* シャドウ効果を追加 */
+  }
+
+/* 支払いボタンのスタイル */
+.btn-success {
+    background-color: #28a745; /* 緑色 */
+    color: white; /* 文字色は白 */
+    border-radius: 5px; /* 角の丸み */
+    padding: 10px 20px; /* パディング */
+    border: none; /* 枠線なし */
+    cursor: pointer; /* カーソルを指マークに */
+    margin: 10px; /* マージン */
+    display: block; /* ブロックレベル要素として扱う */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 支払いフォームのスタイル */
+.payment-form {
+    display: none; /* 最初は表示しない */
+    flex-direction: column; /* 子要素を縦に並べる */
+    align-items: center; /* 中央揃え */
+    padding: 20px;
+  }
+  
+.payment-form input,
+.payment-form .btn-confirm {
+margin: 10px 0; /* 上下のマージン */
+padding: 10px; /* 内側の余白 */
+width: 100%; /* 幅は100% */
+}
+
+.payment-form .btn-confirm {
+background-color: #28a745; /* 緑色 */
+color: white; /* 文字色は白 */
+border: none; /* 枠線なし */
+cursor: pointer; /* カーソルを指マークに */
+}
+
+/* 拡大表示用のスタイル */
+.product-card-expanded {
+    transform: scale(2); /* 1.5倍の大きさに拡大 */
+    background-color: black;
+    color: white;
+    padding-top: 20px;
+    z-index: 10; /* 他の要素よりも前面に表示 */
+    position: relative; /* 必要に応じて調整 */
+    transition: transform 0.3s ease-in-out; /* アニメーション効果 */
+  }
+  
+  #weather-info {
+    text-align: right; /* テキストを右寄せに設定 */
+    padding: 10px; /* 内側に余白を設定 */
+    background-color: #ffffff; /* 背景色を設定 */
+    border: 1px solid #dddddd; /* 境界線を設定 */
+    border-radius: 5px; /* 角を丸く設定 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影をつけて立体感を出す */
+    font-weight: bold; /* フォントを太く */
+    color: #333333; /* フォントの色 */
+    font-size: 1.3em; /* フォントサイズを大きく */
+    width: 50%; /* 横幅を50%に設定 */
+    max-width: 600px; /* 最大横幅を600pxに設定 */
+    margin-right: auto; /* 右寄せ */
+    margin-left: auto; /* 左寄せ */
+    height: auto; /* 高さを自動に設定（内容に応じて変化） */
+    display: block; /* ブロック要素として表示 */
+    overflow: hidden; /* コンテンツがはみ出さないように設定 */
+}
+
+
+/* #weather-info::-webkit-scrollbar {
+    width: 5px;
+} */
+
+/* #weather-info::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa;
+    border-radius: 10px;
+}
+
+#weather-info::-webkit-scrollbar-track {
+    background-color: #dddddd;
+} */
+  

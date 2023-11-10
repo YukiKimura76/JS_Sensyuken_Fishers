@@ -1,0 +1,336 @@
+/* 全体のフォントと背景 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: #f4f4f4;
+  color: #333;
+}
+  /* ナビゲーションバーのカスタマイズ */
+  .navbar-inverse {
+    background-color: #0275d8; 
+    border-color: #01549b;
+  }
+
+  /* リセットCSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+  
+  .navbar-inverse .navbar-brand,
+  .navbar-inverse .navbar-nav>li>a,
+  .navbar-inverse .navbar-seller-btn { 
+    color: #fff; 
+    background-color: transparent; 
+    border: none; 
+  }
+  
+  .navbar-inverse .navbar-brand:hover,
+  .navbar-inverse .navbar-nav>li>a:hover,
+  .navbar-inverse .navbar-seller-btn:hover { 
+    background-color: #01549b; 
+  }
+  
+  /* 魚屋さんボタン専用のスタイル */
+  .navbar-inverse .navbar-seller-btn {
+    background-color: #50a3a2; 
+    border-color: #3d8b8b; 
+    margin-left: 20px; 
+  }
+  
+  /* ボタンにマウスオーバーしたとき */
+  .navbar-inverse .navbar-seller-btn:hover {
+    background-color: #3d8b8b; 
+    border-color: #307670; 
+  }
+  
+  /* ドロップダウンメニュー */
+  .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color: #333; 
+  }
+  
+  .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
+    background-color: #f8f8f8; 
+  }
+  
+  /* フッタースタイル */
+  .footer {
+    background-color: #0275d8; 
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  /* コンテナ内余白 */
+  .container-fluid {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  /* タイトルやセクションのスタイル */
+  h4 {
+    margin-top: 0;
+  }
+  
+  /* 商品リストなどのスタイル */
+  .product-list {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* カート機能がある場合のスタイル */
+  .cart-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+  }
+  
+  /* ボタンカラー */
+  .btn-primary {
+    background-color: #0275d8; 
+    border-color: #01549b;
+  }
+  
+  .btn-primary:hover {
+    background-color: #01549b; 
+  }
+  
+  /* その他の小さな修正 */
+  .padding-1 {
+    padding: 10px;
+  }
+  
+  .padding-2 {
+    padding: 20px;
+  }
+  
+  
+  
+  .bg-1 {
+    background-color: #0275d8; 
+  }
+  
+  .bg-2{
+    background-color: #afd8fb; 
+  }
+  
+  /* カスタムボタンの色を魚屋さんのテーマに合わせて変更 */
+  .custom-btn {
+    background-color: #50a3a2; 
+    color: white;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* ナビゲーションバーの色を変更 */
+  .navbar {
+    background-color: #30768a; 
+  }
+  
+  /* フッターの色を変更 */
+  .footer {
+    background-color: #2a404e; 
+  }
+
+.product-card {
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
+  overflow: hidden; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+  transition: box-shadow 0.3s ease-in-out; 
+}
+
+.product-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+}
+
+.product-card img {
+  width: 100%; 
+  display: block; 
+  height: 200px; 
+  object-fit: cover; 
+}
+
+.product-info {
+  padding: 15px; 
+}
+
+.product-name {
+  margin-top: 0; 
+  font-size: 1.2em; 
+}
+
+/* ここから削除ボタンのスタイル */
+.delete-btn {
+  background-color: #ff4444; 
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  margin-top: 10px; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+}
+
+.delete-btn:hover {
+  background-color: #cc0000; 
+}
+
+.cart-feedback {
+  background-color: #28a745; 
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* コンテナ全体のスタイル */
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh; 
+}
+
+/* マップコンテナのスタイル */
+.map-container {
+    width: 70%;
+    height: 100%;
+    margin-right: 10;
+}
+
+/* 産地別数量リストのスタイル */
+.origins-container {
+    
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; 
+    background-color: #f8f9fa; 
+}
+
+/* 産地別数量リストアイテムのスタイル */
+.origins-container li {
+    list-style-type: none; 
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #ffffff; 
+    border: 1px solid #dddddd; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    font-weight: bold; 
+    color: #333333; 
+}
+
+/* スクロールバーのスタイル（オプション） */
+.origins-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.origins-container::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa;
+    border-radius: 10px;
+}
+
+.origins-container::-webkit-scrollbar-track {
+    background-color: #dddddd;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+header, #product-list{
+  text-align: center;
+  padding: 20px 0;
+  background-color: rgb(67, 190, 239);
+  color: white;
+  font-size: 2.0em;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+
+/* スマートフォンやタブレットへの対応 */
+@media (max-width: 768px) {
+  .navbar-header {
+    float: none;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-collapse.collapse {
+    display: none!important;
+  }
+  .navbar-nav {
+    float: none!important;
+    margin: 7.5px -15px;
+  }
+  .navbar-nav>li {
+    float: none;
+  }
+  .navbar-nav>li>a,
+  .navbar-inverse .navbar-seller-btn { 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block; 
+    width: 100%; 
+  }
+  .navbar-inverse .navbar-seller-btn {
+    margin: 10px 0; 
+  }
+}
+
+/* カートアイテム用のカードスタイル */
+.card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+#signUpPanel {
+  display: none; 
+}
+
+/* 新規登録とログインパネルのスタイリング */
+.login-panel {
+  margin-top: 50px; 
+}
+
+/* 中央揃えのための追加スタイル */
+.centered-panel {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+

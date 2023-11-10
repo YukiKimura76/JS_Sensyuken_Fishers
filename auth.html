@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<link rel='stylesheet' href='https://cdn.materialdesignicons.com/3.3.92/css/materialdesignicons.min.css'/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+<link rel='stylesheet' href='./CSS/auth.css'/>
+</head>
+
+<body>
+
+  <div class='container-fluid padding-2 bg-2 specific-height smooth-bg' id='credential'>
+  <!--ログインパネル -->
+  <div class='row'>
+    <div class='col-md-4 col-md-offset-4 login-panel centered-panel' id='loginPanel'>
+      <h2 class='text-center'>ログイン</h2>
+      <form>
+        <div class='form-group'>
+          <label for='email'>メールアドレス</label>
+
+        <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input id="emailL" type="text" class="form-control" name="email" placeholder="Email">
+  </div>
+</div>
+<div class='form-group'>
+  <label for='password'>パスワード</label>
+
+  <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <input id="passwordL" type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+</div>
+
+<div class='form-group'>
+  <div class="input-group">
+    <input type='button' id='submitL' class='btn btn-success' value='Login'/>
+  </div>
+</div>
+      </form>
+      <div id='errorHandlerL'></div>
+      <div id='linkSignUp' class='accessPanel'><a href='#'>新規登録</a></div>
+    </div>
+
+<!--新規登録パネル -->
+<div class='row'> 
+  <div class='col-md-4 col-md-offset-4 login-panel centered-panel' id='signUpPanel' style='display:none;'>
+      <h2 class='text-center'>新規登録</h2>
+      <form>
+        <div class='form-group'>
+          <label for='email'>メールアドレス</label>
+
+        <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input id="emailS" type="text" class="form-control" name="email" placeholder="Email">
+  </div>
+</div>
+<div class='form-group'>
+  <label for='password'>パスワード</label>
+
+  <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <input id="passwordS" type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+</div>
+<div id="userDisplay"></div>
+<div class='form-group'>
+  <label for='confirmP'>パスワード確認</label>
+
+  <div class='input-group'>
+    <span class='input-group-addon'><i class='glyphicon glyphicon-lock'></i></span>
+    <input id='cPasswordS' type='password' class='form-control' name='confirmP' placeholder='Confirm Password'>
+  </div>
+</div>
+<div class='form-group'>
+  <div class="input-group">
+    <input type='button' id='submitS' class='btn btn-warning' value='Sign Up'/>
+  </div>
+</div>
+      </form>
+      <div id='errorHandlerS'></div>
+      <div id='linkLogin' class='accessPanel'><a href='#'>ログイン</a></div>
+    </div>
+  </div>
+
+  <div class='container-fluid text-center padding-1 footer'>
+    <a href="./index.html">
+    <h4>株式会社ジーズアカデミーLAB16期</h4>
+    </a>
+  </div>
+
+  <div id='loading-panel'>
+    <div class='loader'>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+  <script src='js/firebaseConfig.js'></script>
+
+  
+  <script src='js/database.js'></script>
+  <script src='js/auth.js'></script>
+</body>
+</html>

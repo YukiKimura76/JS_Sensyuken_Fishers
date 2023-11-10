@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>魚市場</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="./CSS/style.index.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+<script src="js/firebaseConfig.js"></script>
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AvwhXY91HP85mm73jbmc_auVx6XVPXt2Cy3U9hJ0z4M159xAszgI1yNqJqYPQv1a' async defer></script>
+<script src="https://cdn.jsdelivr.net/gh/yamazakidaisuke/BmapQuery/js/BmapQuery.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="./index.html">魚市場</a>
+        </div>
+        <ul class="nav navbar-nav">
+        <li class="active"><a href="./FV.html">TOP</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">産地<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="?category=fukuoka">福岡</a></li>
+                <li><a href="?category=yaizu">焼津</a></li>
+                <li><a href="?category=nagasaki">長崎</a></li>
+                <li><a href="?category=choshi">銚子</a></li>
+                <li><a href="?category=nemuro">根室</a></li>
+            </ul>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a id="login-link" href="auth.html"><span class="glyphicon glyphicon-user"></span> ログイン</a></li>
+            <li><a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> カート</a></li>
+        </ul>
+          
+        <button class="navbar-seller-btn" onclick="window.location.href='seller.html'">魚屋さんは<br>こちら</button>
+    </div>
+</nav>
+<h1>世界中のバイヤーが直接、日本の魚市場に買い付けできる<br>越境ECプラットフォーム</h1>
+<header class="container">　　本日捕れたお魚</header>
+
+<div class="container">
+    <div id="map-container" class="map-container">
+        <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
+    </div>
+    <div id="origins-container" class="origins-container">
+        <!-- 産地別の数量がリスト表示される -->
+    </div>
+    <body onload="displayAllWeather()">
+        <!-- 天気情報を表示するためのdiv -->
+        <div id="weather-info"></div>
+    </body>
+</div>
+
+
+
+
+<!-- MAP表示 -->
+<script>
+    function GetMap(){
+        const map = new Bmap("#myMap");
+        map.startMap(38, 138, "load", 5); 
+        // ピンを追加する
+        // 福岡
+        let pinFukuoka = map.pinIcon(33.6064, 130.4186, "img/map_pin.png", 1.0, 0, 0);
+        // 焼津
+        let pinYaizu = map.pinIcon(34.8665, 138.3231, "img/map_pin.png", 1.0, 0, 0);
+        // 長崎
+        let pinNagasaki = map.pinIcon(32.7503, 129.8777, "img/map_pin.png", 1.0, 0, 0);
+        // 銚子
+        let pinChoshi = map.pinIcon(35.725182884018864, 140.833448921103, "img/map_pin.png", 1.0, 0, 0);
+        // 根室
+        let pinNemuro = map.pinIcon(43.3301, 145.5828, "img/map_pin.png", 1.0, 0, 0);
+        
+    };
+
+    // GetMap関数を実行してマップを読み込む
+    GetMap();
+</script>
+
+<script>
+    // 産地の緯度と経度
+    const origins = {
+      '福岡': { lat: 33.6064, lon: 130.4186 },
+      '焼津': { lat: 34.8665, lon: 138.3231 },
+      '長崎': { lat: 32.7503, lon: 129.8777 },
+      '銚子': { lat: 35.7252, lon: 140.8334 },
+      '根室': { lat: 43.3301, lon: 145.5828 }
+    };
+    
+    // 天気情報を取得して表示する関数
+    function displayWeather(originName, originData) {
+      // OpenWeatherMap APIのURL
+      const apiKey = '9a7f6399889d39412cdb9fb533518e13'; // 実際のAPIキー入力
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${originData.lat}&lon=${originData.lon}&appid=${apiKey}&lang=ja&units=metric`;
+    
+        // APIから天気情報を取得
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+        // 天気情報を表示するコード
+        const weather = data.weather[0].description; // 天気の説明
+        const iconCode = data.weather[0].icon; // 天気アイコンのコード
+        const temp = data.main.temp; // 温度
+
+        // 天気アイコンのURLを生成
+        const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+
+        // HTMLに追加
+        const weatherDiv = document.getElementById('weather-info');
+        const weatherElement = document.createElement('div');
+        weatherElement.innerHTML = `
+            <h3>${originName}</h3>
+            <img src="${iconUrl}" alt="Weather icon" style="vertical-align: middle;">
+            <span> ${weather}, 温度: ${temp}°C</span>
+        `;
+        weatherDiv.appendChild(weatherElement);
+        })
+        .catch(error => {
+        console.error('天気情報の取得に失敗しました', error);
+        });
+    }
+    
+       // すべての産地の天気情報を表示
+    function displayAllWeather() {
+    Object.entries(origins).forEach(([originName, originData]) => {
+        displayWeather(originName, originData);
+    });
+    }
+</script>
+
+<h2 id="product-list">お魚一覧</h2>
+
+<!-- 全商品を表示するセクション -->
+<div class="container">
+    <div id="all-products" class="row">
+
+    </div>
+</div>
+
+<div id="cart-feedback" class="cart-feedback" style="display: none;">
+    商品をカートに追加しました！
+</div>
+  
+
+<!-- 商品カードのテンプレート -->
+<script type="text/template" id="product-card-template">
+    <div class="product-card">
+        <img src="%PHOTO%" alt="Product Image" class="product-image">
+        <p class="product-origin">産地：%ORIGIN%</p>
+        <p class="product-category">種類： %CATEGORY%</p>
+        <p class="product-price">価格：¥%PRICE%</p>
+        <p class="product-rating">おすすめ： %RATING%</p>
+        <p class="product-size">サイズ： %SIZE%</p>
+        <p class="product-weight">重さ： %WEIGHT%kg</p>
+        <a href="cart.html" class="btn btn-primary">カートに追加</a>
+
+        
+    </div>
+</script>
+
+
+<div class="container-fluid text-center footer">
+<h4>株式会社ジーズアカデミーLAB16期</h4>
+</div>
+
+<!-- FirebaseとメインのJavaScriptファイルを読み込む -->
+<script src="js/main.js"></script>
+</body>
+</html>

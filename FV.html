@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+            <p class="sample-text1">世界を、日本のファンにする</p>
+    </div>
+
+    <style>
+    .container {
+        background-color: black;
+    }
+
+    .sample-text1 {
+    font-size: 20px;
+    font-weight: bold;
+    animation-name: fadein;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    flex: center;
+    width: 1800px;
+    height: 700px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 7em;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+    padding-top: 550px;
+    animation-iteration-count: 1;
+    }
+
+    @keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateY(500px);
+        }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    }
+
+    
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var animationElement = document.querySelector('.sample-text1');
+
+        animationElement.addEventListener('animationend', function() {
+            window.location.href = 'index.html'; // 遷移先URL
+        });
+    });
+</script>
+
+</body>
+</html>

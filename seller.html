@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>商品管理ページ | おさかな屋さん</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./CSS/style.seller.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+  <script src="js/firebaseConfig.js"></script>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="./index.html">魚市場</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="./FV.html">TOP</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">産地<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="?category=fukuoka">福岡</a></li>
+                <li><a href="?category=yaizu">焼津</a></li>
+                <li><a href="?category=nagasaki">長崎</a></li>
+                <li><a href="?category=choshi">銚子</a></li>
+                <li><a href="?category=nemuro">根室</a></li>
+            </ul>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a id="login-link" href="auth.html"><span class="glyphicon glyphicon-user"></span> ログイン</a></li>
+            <li><a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> カート</a></li>
+        </ul>
+          
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>新しいお魚を登録</h2>
+    <form id="product-form">
+    <!-- 魚登録情報の設定 -->
+      <div class="form-group">
+        <label for="origin">産地:</label>
+        <select class="form-control" id="origin" name="origin">
+          <option value="fukuoka">福岡</option>
+          <option value="yaizu">焼津</option>
+          <option value="nagasaki">長崎</option>
+          <option value="choshi">銚子</option>
+          <option value="nemuro">根室</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fish-category">魚の種類:</label>
+        <select class="form-control" id="fish-category" name="fish-category">
+          <option value="salmon">鮭</option>
+          <option value="tuna">マグロ</option>
+          <option value="mackerel">サバ</option>
+          <option value="crab">カニ</option>
+          <option value="squid">イカ</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="weight">重さ:</label>
+        <input type="text" class="form-control" id="weight" name="weight" placeholder="例：500g">
+      </div>
+      <div class="form-group">
+        <label for="size">サイズ:</label>
+        <input type="text" class="form-control" id="size" name="size" placeholder="例：大・中・小">
+      </div>
+      <div class="form-group">
+        <label for="price">価格:</label>
+        <input type="number" class="form-control" id="price" name="price" placeholder="円">
+      </div>
+      <div class="form-group">
+        <label>おすすめ度:</label>
+        <div>
+          <!-- おすすめ度のラジオボタン（★の数で表現） -->
+          <label class="radio-inline"><input type="radio" name="rating" value="1">★</label>
+          <label class="radio-inline"><input type="radio" name="rating" value="2">★★</label>
+          <label class="radio-inline"><input type="radio" name="rating" value="3">★★★</label>
+          <label class="radio-inline"><input type="radio" name="rating" value="4">★★★★</label>
+          <label class="radio-inline"><input type="radio" name="rating" value="5">★★★★★</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fish-photo">魚の写真:</label>
+        <input type="file" class="form-control" id="fish-photo" name="fish-photo">
+      </div>
+      <button type="submit" class="btn btn-primary">登録</button>
+    </form>
+  </div>
+
+  <!-- 登録した商品を表示するエリア -->
+  <div class="container">
+    <div class="row" id="products-container">
+      <h2>登録済みお魚一覧</h2>
+      <!-- 商品カード挿入 -->
+    </div>
+  </div>
+
+  <!-- ローディングアニメーション -->
+  <div id="loader" class="loader" style="display: none;"></div>
+
+
+  <script>
+    var database = firebase.database();
+    var storage = firebase.storage();
+    var loader = document.getElementById('loader');
+
+    // 魚の種類の日本語名を取得するための関数
+    function getSelectedText(elementId) {
+      var elt = document.getElementById(elementId);
+      if (elt.selectedIndex == -1) {
+        return null;
+      }
+      return elt.options[elt.selectedIndex].text;
+    }
+    
+    function getRatingStars(value) {
+    return '★'.repeat(value);
+    }
+
+     function addProductCard(product, key) {
+
+      var card = document.createElement('div');
+      card.classList.add('col-xs-12', 'col-sm-6', 'col-md-3', 'col-lg-3');
+      card.innerHTML = `
+      <div class="product-card" id="${key}">
+      <img src="${product.photo}" alt="${product.category}">
+      <div class="product-info">
+        <p>産地： ${product.origin}</p>
+        <p>種類： ${product.category}</p>
+        <p>重さ： ${product.weight}</p>
+        <p>サイズ： ${product.size}</p>
+        <p>価格： ${product.price}円</p>
+        <p>おすすめ度： ${'★'.repeat(product.rating)}</p>
+        <button onclick="deleteProduct('${key}')" class="delete-btn">削除</button>
+      </div>
+      </div>
+      `;
+      document.getElementById('products-container').appendChild(card);
+    }
+
+    
+
+    document.getElementById('product-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+    
+      var originText = getSelectedText('origin'); // 産地の日本語名を取得
+      var fishCategoryText = getSelectedText('fish-category'); // 魚の種類の日本語名を取得
+      var weight = document.getElementById('weight').value;
+      var size = document.getElementById('size').value;
+      var price = document.getElementById('price').value;
+      var ratingValue = document.querySelector('input[name="rating"]:checked').value;
+      var rating = getRatingStars(ratingValue); // 星の数を文字列で取得
+      var fishPhoto = document.getElementById('fish-photo').files[0]; 
+      
+
+     
+      if (fishPhoto) {
+        var storageRef = storage.ref('fish_photos/' + fishPhoto.name);
+        var uploadTask = storageRef.put(fishPhoto);
+
+        uploadTask.on('state_changed', function (snapshot) {
+          
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        }, function (error) {
+          
+          console.error('Upload failed:', error);
+        }, function () {
+          
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            console.log('File available at', downloadURL);
+
+            
+            var newProduct = {
+              origin: originText, // 日本語名を保存
+              category: fishCategoryText, // 日本語名を保存
+              weight: weight,
+              size: size,
+              price: price,
+              rating: rating,
+              photo: downloadURL
+            };
+            console.log('New product:', newProduct);
+
+            // プッシュ
+            return database.ref('products').push(newProduct).then(function (snapshot) {
+              const key = snapshot.key;
+              console.log('Data saved, key:', key);
+              addProductCard(newProduct, key);
+              alert('お魚が登録されました');
+            }).catch(function (error) {
+              console.error('Data could not be saved:', error);
+              alert('登録に失敗しました' + error.message);
+            });
+          });
+        })};
+      });
+    
+
+    // ページ読み込み時に実行する関数
+    function loadProducts() {
+      var productsRef = database.ref('products');
+      productsRef.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var key = childSnapshot.key;
+          var product = childSnapshot.val();
+          addProductCard(product, key);
+        });
+      });
+    }
+
+    // ページ読み込み時に商品をロードする
+    document.addEventListener('DOMContentLoaded', loadProducts);
+
+    // 削除ボタン
+    function deleteProduct(key) {
+      
+      if (confirm('この商品を削除してもよろしいですか？')) {
+        
+        database.ref('products/' + key).remove().then(function () {
+          
+          var card = document.getElementById(key);
+          card.parentNode.removeChild(card);
+          alert('お魚は削除されました.');
+        }).catch(function (error) {
+          alert('Could not remove product. ' + error);
+        });
+      }
+    }
+  
+  </script>
+
+</body>
+
+</html>
